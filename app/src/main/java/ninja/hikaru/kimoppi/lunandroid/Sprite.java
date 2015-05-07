@@ -2,6 +2,8 @@ package ninja.hikaru.kimoppi.lunandroid;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Picture;
 import android.graphics.RectF;
 
@@ -16,6 +18,7 @@ public class Sprite {
     public int x, y;
     public int w, h;
     Picture picture;
+    Paint background;
 
     private Map<Class<? extends Feature>, Feature> features;
     private SpriteGroup parent;
@@ -42,23 +45,28 @@ public class Sprite {
     }
 
     public float getTop() {
-        return x - (float) h / 2;
+        return y - (float) h / 2;
     }
 
     public float getBottom() {
-        return x + (float) h / 2;
+        return y + (float) h / 2;
     }
 
     public float getLeft() {
-        return y - (float) w / 2;
+        return x - (float) w / 2;
     }
 
     public float getRight() {
-        return y + (float) w / 2;
+        return x + (float) w / 2;
     }
 
     public RectF getRect() {
         return new RectF(getLeft(), getTop(), getRight(), getBottom());
+    }
+
+    public void setBackground(int background) {
+        this.background = new Paint();
+        this.background.setColor(background);
     }
 
     public synchronized <T extends Feature> T useFeature(Class<T> featureClass) {
@@ -102,6 +110,9 @@ public class Sprite {
     }
 
     public void draw(Canvas c) {
+        if(background != null) {
+            c.drawRect(getRect(), background);
+        }
         for (Feature feature : features.values()) {
             feature.onDraw(c);
         }

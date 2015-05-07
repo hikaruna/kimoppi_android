@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.Log;
 import android.view.TextureView;
 
@@ -26,7 +27,8 @@ public class Game implements Runnable {
         this.view = view;
         this.fpsManager = new FpsManager();
         this.fpsMoniter = new FpsMoniter(10);
-        this.currentScene = new Scene(null);
+
+        setCurrentScene(Scene.class);
     }
 
 
@@ -71,9 +73,15 @@ public class Game implements Runnable {
         return fpsManager;
     }
 
-    public synchronized void setCurrentScene(Scene currentScene) {
-        currentScene.setGame(this);
-        this.currentScene = currentScene;
+    public synchronized <T extends Scene> T setCurrentScene(Class<T> sceneClass) {
+        try {
+            T scene = sceneClass.newInstance();
+            scene.onCreate(currentScene, this);
+            this.currentScene = scene;
+            return scene;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Scene getCurrentScene() {
@@ -82,5 +90,13 @@ public class Game implements Runnable {
 
     public Context getContext() {
         return view.getContext();
+    }
+
+    public int getWidth() {
+        return view.getWidth();
+    }
+
+    public int getHeight() {
+        return view.getHeight();
     }
 }
