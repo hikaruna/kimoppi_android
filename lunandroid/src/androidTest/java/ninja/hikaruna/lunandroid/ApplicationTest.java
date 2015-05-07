@@ -1,4 +1,4 @@
-package com.example.lunandroid;
+package ninja.hikaruna.lunandroid;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

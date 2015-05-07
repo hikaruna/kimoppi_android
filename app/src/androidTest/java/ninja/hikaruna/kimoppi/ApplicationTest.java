@@ -1,4 +1,4 @@
-package ninja.hikaru.kimoppi;
+package ninja.hikaruna.kimoppi;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

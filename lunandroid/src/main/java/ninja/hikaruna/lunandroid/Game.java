@@ -1,4 +1,4 @@
-package com.example.lunandroid.lunandroid;
+package ninja.hikaruna.lunandroid;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -7,8 +7,8 @@ import android.graphics.Paint;
 import android.util.Log;
 import android.view.TextureView;
 
-import com.example.lunandroid.lunandroid.support.FpsManager;
-import com.example.lunandroid.lunandroid.support.FpsMoniter;
+import ninja.hikaruna.lunandroid.support.FpsManager;
+import ninja.hikaruna.lunandroid.support.FpsMoniter;
 
 /**
  * Created by hikaru on 2015/05/06.

@@ -1,4 +1,4 @@
-package com.example.lunandroid.lunandroid.support;
+package ninja.hikaruna.lunandroid.support;
 
 /**
  * Created by hikaru on 2015/05/07.

@@ -1,12 +1,13 @@
-package ninja.hikaru.kimoppi;
+package ninja.hikaruna.kimoppi;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 
-import com.example.lunandroid.lunandroid.Game;
-import com.example.lunandroid.lunandroid.GameActivity;
-import com.example.lunandroid.lunandroid.Scene;
+import ninja.hikaru.kimoppi.R;
+import ninja.hikaruna.lunandroid.Game;
+import ninja.hikaruna.lunandroid.GameActivity;
+import ninja.hikaruna.lunandroid.Scene;
 
 
 public class MainActivity extends GameActivity {

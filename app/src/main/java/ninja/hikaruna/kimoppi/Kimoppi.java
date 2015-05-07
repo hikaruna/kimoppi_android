@@ -1,10 +1,10 @@
-package ninja.hikaru.kimoppi;
+package ninja.hikaruna.kimoppi;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-import com.example.lunandroid.lunandroid.Physics;
-import com.example.lunandroid.lunandroid.Sprite;
+import ninja.hikaruna.lunandroid.Physics;
+import ninja.hikaruna.lunandroid.Sprite;
 
 /**
  * Created by hikaru on 2015/05/06.
