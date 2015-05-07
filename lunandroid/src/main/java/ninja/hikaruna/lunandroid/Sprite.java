@@ -89,7 +89,7 @@ public class Sprite {
         }
     }
 
-    private synchronized boolean containsFeature(Class<? extends Feature> featureClass) {
+    public synchronized boolean containsFeature(Class<? extends Feature> featureClass) {
         for (Feature feature : features) {
             if (feature.getClass().equals(featureClass)) {
                 return true;

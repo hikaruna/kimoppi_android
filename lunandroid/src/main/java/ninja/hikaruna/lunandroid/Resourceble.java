@@ -7,12 +7,11 @@ import android.support.annotation.Nullable;
  */
 public class Resourceble extends Feature {
 
-    boolean sceneSetted;
     private Integer resId;
 
     public void setResource(int resId) {
         this.resId = resId;
-        if (sceneSetted) {
+        if (getSprite().getScene() != null) {
             setResourceReal();
         }
     }
@@ -23,8 +22,7 @@ public class Resourceble extends Feature {
 
     @Override
     public void onSceneSetted() {
-        if (!sceneSetted && resId != null) {
-            sceneSetted = true;
+        if (resId != null) {
             setResourceReal();
         }
     }
