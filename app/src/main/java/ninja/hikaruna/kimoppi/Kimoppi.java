@@ -1,9 +1,8 @@
 package ninja.hikaruna.kimoppi;
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-
+import ninja.hikaru.kimoppi.R;
 import ninja.hikaruna.lunandroid.Physics;
+import ninja.hikaruna.lunandroid.Resourceble;
 import ninja.hikaruna.lunandroid.Sprite;
 
 /**
@@ -11,14 +10,13 @@ import ninja.hikaruna.lunandroid.Sprite;
  */
 public class Kimoppi extends Sprite {
 
-    private Bitmap resource;
-
-    public Kimoppi(Bitmap bitmap) {
+    public Kimoppi() {
         x = (int) (Math.random() * 1000);
         y = (int) (Math.random() * 2000);
         w = 100;
         h = 100;
-        resource = bitmap;
+
+        useFeature(Resourceble.class).setResource(R.drawable.kimoppi0);
 
         useFeature(Physics.class);
     }
@@ -29,11 +27,5 @@ public class Kimoppi extends Sprite {
 
         useFeature(Physics.class).speedX += (Math.random() * 3) - 1.5f;
         useFeature(Physics.class).speedY += (Math.random() * 3) - 1.5f;
-    }
-
-    @Override
-    public void draw(Canvas c) {
-        super.draw(c);
-        c.drawBitmap(resource, null, getRect(), null);
     }
 }

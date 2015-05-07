@@ -7,9 +7,11 @@ import android.content.Context;
  */
 public class Scene extends SpriteGroup {
     private Game game;
+    private ResourceManager resourceManager;
 
     public void onCreate(Scene from, Game game) {
         this.game = game;
+        this.resourceManager = new ResourceManager(getContext().getResources());
         x = game.getWidth()/2;
         y = game.getHeight()/2;
         w = game.getWidth();
@@ -26,4 +28,13 @@ public class Scene extends SpriteGroup {
         return this;
     }
 
+    @Override
+    public synchronized void addChild(Sprite child) {
+        super.addChild(child);
+        child.onSceneSetted();
+    }
+
+    public ResourceManager getResourceManager() {
+        return resourceManager;
+    }
 }

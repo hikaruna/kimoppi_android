@@ -6,8 +6,7 @@ import android.graphics.Paint;
 import android.graphics.Picture;
 import android.graphics.RectF;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedList;
 
 /**
  * Created by hikaru on 2015/05/07.
@@ -19,12 +18,12 @@ public class Sprite {
     Picture picture;
     Paint background;
 
-    private Map<Class<? extends Feature>, Feature> features;
+    private LinkedList<Feature> features;
     private SpriteGroup parent;
 
     public Sprite() {
         picture = new Picture();
-        features = new HashMap<>();
+        features = new LinkedList<>();
     }
 
     public SpriteGroup getParent() {
@@ -68,64 +67,87 @@ public class Sprite {
         this.background.setColor(background);
     }
 
-    @SuppressWarnings("unchecked")
     public synchronized <T extends Feature> T useFeature(Class<T> featureClass) {
-        if (!features.containsKey(featureClass)) {
+        if (!containsFeature(featureClass)) {
             setFeature(featureClass);
         }
 
-        return (T) features.get(featureClass);
+        return getFeature(featureClass);
     }
 
-    private void setFeature(Class<? extends Feature> featureClass) {
+    private synchronized void setFeature(Class<? extends Feature> featureClass) {
         try {
+            if (containsFeature(featureClass)) {
+                throw new RuntimeException(featureClass.getSimpleName() + "is alredy enabled.");
+            }
             Feature feature = featureClass.newInstance();
-            checkDependencyResolution(feature);
+            resolveDependency(feature);
             feature.setSprite(this);
-            features.put(featureClass, feature);
+            features.add(0, feature);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void checkDependencyResolution(Feature feature) {
-        if (feature.getDepends() == null) {
-            return;
-        }
-
-        for (Class depend : feature.getDepends()) {
-            if (!features.containsKey(depend)) {
-                String f = "Dependency resolution failed. %s depends %s.";
-                String msg = String.format(f, feature.getClass().getSimpleName(), depend.getSimpleName());
-                throw new RuntimeException(msg);
+    private synchronized boolean containsFeature(Class<? extends Feature> featureClass) {
+        for (Feature feature : features) {
+            if (feature.getClass().equals(featureClass)) {
+                return true;
             }
         }
+        return false;
     }
 
-    public boolean containFeature(Class<? extends Feature> featureClass) {
-        return features.containsKey(featureClass);
+    @SuppressWarnings("unchecked")
+    public <T extends Feature> T getFeature(Class<T> featureClass) {
+        for (Feature feature : features) {
+            if (feature.getClass().equals(featureClass)) {
+                return (T) feature;
+            }
+        }
+        return null;
+    }
+
+    private boolean resolveDependency(Feature feature) {
+        if (feature.getDepends() == null) {
+            return true;
+        }
+
+        for (Class<? extends Feature> depend : feature.getDepends()) {
+            if (!containsFeature(depend)) {
+                setFeature(depend);
+                return false;
+            }
+        }
+        return true;
     }
 
     public void update() {
-        for (Feature feature : features.values()) {
+        for (Feature feature : features) {
             feature.onUpdate();
         }
     }
 
     public void draw(Canvas c) {
-        if(background != null) {
+        if (background != null) {
             c.drawRect(getRect(), background);
         }
-        for (Feature feature : features.values()) {
+        for (Feature feature : features) {
             feature.onDraw(c);
         }
     }
 
     public void destroy() {
-        for (Feature feature : features.values()) {
+        for (Feature feature : features) {
             feature.onDestroy();
         }
     }
 
+    public void onSceneSetted() {
+        for (Feature feature : features) {
+            feature.onSceneSetted();
+        }
+
+    }
 }
 

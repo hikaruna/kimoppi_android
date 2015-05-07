@@ -33,4 +33,7 @@ public abstract class Feature {
 
     public void onDestroy() {
     }
+
+    public void onSceneSetted() {
+    }
 }

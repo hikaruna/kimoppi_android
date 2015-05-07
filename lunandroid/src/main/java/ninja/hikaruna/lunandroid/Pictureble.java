@@ -8,7 +8,7 @@ import android.graphics.Picture;
  */
 public class Pictureble extends Feature {
 
-    Picture picture;
+    private Picture picture;
 
     @Override
     public void onDraw(Canvas c) {
