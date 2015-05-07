@@ -12,8 +12,8 @@ import java.util.Map;
  */
 public class Sprite {
 
-    protected int x, y;
-    protected int w, h;
+    public int x, y;
+    public int w, h;
     Picture picture;
 
     private Map<Class<? extends Feature>, Feature> features;
@@ -77,7 +77,11 @@ public class Sprite {
     }
 
     public void draw2(Canvas c) {
+        for(Feature feature : features.values()) {
+            feature.onDraw(c);
+        }
     }
+
     Picture getPicture() {
         return picture;
     }

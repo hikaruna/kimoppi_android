@@ -14,6 +14,7 @@ public class MainActivity extends ActionBarActivity {
 
     private TextureView view;
     private Game game;
+    private Kimoppi kimoppi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,12 +23,20 @@ public class MainActivity extends ActionBarActivity {
         view = (TextureView) findViewById(R.id.view);
         game = new Game(view);
         view.setSurfaceTextureListener(new TextureListener(game));
+        game.getFpsManager().setFps(10);
 
-        Kimoppi kimoppi = new Kimoppi(this.getResources());
+        kimoppi = new Kimoppi(this.getResources());
         game.getCurrentScene().addChild(kimoppi);
         for(int i = 0 ; i< 300; i++) {
-            //game.getCurrentScene().addChild(new Kimoppi(getResources()));
+            game.getCurrentScene().addChild(new Kimoppi(getResources()));
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        kimoppi.x = 100;
+        kimoppi.y = 100;
     }
 
     @Override

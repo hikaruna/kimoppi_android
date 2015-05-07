@@ -64,8 +64,6 @@ public class Kimoppi extends Sprite {
 
     @Override
     public void onDraw(Canvas c) {
-        Log.d("KIMO", "onDraw");
         super.onDraw(c);
-        //c.drawBitmap(res, null, getRect(), null);
     }
 }
