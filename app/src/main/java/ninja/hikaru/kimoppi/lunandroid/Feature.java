@@ -11,8 +11,12 @@ public abstract class Feature {
     public Feature() {
     }
 
+    public Class<? extends Feature>[] getDepends() {
+        return new Class[]{};
+    }
+
     public void onUpdate() {
-    };
+    }
 
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
@@ -23,5 +27,8 @@ public abstract class Feature {
     }
 
     public void onDraw(Canvas c) {
-    };
+    }
+
+    public void onDestroy() {
+    }
 }

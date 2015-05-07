@@ -16,11 +16,13 @@ public class SpriteGroup extends Sprite {
         children = new LinkedList<>();
     }
 
-    public void addChild(Sprite child) {
+    public synchronized void addChild(Sprite child) {
+        child.setParent(this);
         children.add(child);
     }
 
-    public void removeChild(Sprite child) {
+    public synchronized void removeChild(Sprite child) {
+        child.setParent(null);
         children.remove(child);
     }
 
@@ -33,18 +35,18 @@ public class SpriteGroup extends Sprite {
     }
 
     @Override
-    public final void onDraw(Canvas c) {
+    public final void draw(Canvas c) {
+        super.draw(c);
         for(Sprite child : children) {
-            child.draw();
-            c.drawPicture(child.getPicture());
+            child.draw(c);
         }
     }
 
     @Override
-    public void draw2(Canvas c) {
-        super.draw2(c);
+    public void destroy() {
+        super.destroy();
         for(Sprite child : children) {
-            child.draw2(c);
+            child.destroy();
         }
     }
 }

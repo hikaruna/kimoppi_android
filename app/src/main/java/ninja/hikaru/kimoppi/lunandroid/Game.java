@@ -1,5 +1,6 @@
 package ninja.hikaru.kimoppi.lunandroid;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -45,9 +46,7 @@ public class Game implements Runnable {
     private void loop(Canvas c) {
         c.drawColor(Color.BLACK);
         currentScene.update();
-        //currentScene.draw();
-        //c.drawPicture(currentScene.getPicture(), currentScene.getRect());
-        currentScene.draw2(c);
+        currentScene.draw(c);
         Paint p = new Paint();
         p.setColor(Color.WHITE);
         p.setTextSize(30f);
@@ -72,7 +71,16 @@ public class Game implements Runnable {
         return fpsManager;
     }
 
+    public synchronized void setCurrentScene(Scene currentScene) {
+        currentScene.setGame(this);
+        this.currentScene = currentScene;
+    }
+
     public Scene getCurrentScene() {
         return currentScene;
+    }
+
+    public Context getContext() {
+        return view.getContext();
     }
 }

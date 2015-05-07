@@ -1,5 +1,7 @@
 package ninja.hikaru.kimoppi;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -23,12 +25,13 @@ public class MainActivity extends ActionBarActivity {
         view = (TextureView) findViewById(R.id.view);
         game = new Game(view);
         view.setSurfaceTextureListener(new TextureListener(game));
-        game.getFpsManager().setFps(10);
+        game.getFpsManager().setFps(100);
 
-        kimoppi = new Kimoppi(this.getResources());
+        Bitmap kimoppiResource = BitmapFactory.decodeResource(getResources(), R.drawable.kimoppi0);
+        kimoppi = new Kimoppi(kimoppiResource);
         game.getCurrentScene().addChild(kimoppi);
         for(int i = 0 ; i< 300; i++) {
-            game.getCurrentScene().addChild(new Kimoppi(getResources()));
+            game.getCurrentScene().addChild(new Kimoppi(kimoppiResource));
         }
     }
 
