@@ -6,17 +6,28 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.TextureView;
 
+import ninja.hikaru.kimoppi.lunandroid.Game;
+import ninja.hikaru.kimoppi.lunandroid.Scene;
+
 
 public class MainActivity extends ActionBarActivity {
 
     private TextureView view;
+    private Game game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         view = (TextureView) findViewById(R.id.view);
-        view.setSurfaceTextureListener(new TextureListener(this));
+        game = new Game(view);
+        view.setSurfaceTextureListener(new TextureListener(game));
+
+        Kimoppi kimoppi = new Kimoppi(this.getResources());
+        game.getCurrentScene().addChild(kimoppi);
+        for(int i = 0 ; i< 300; i++) {
+            //game.getCurrentScene().addChild(new Kimoppi(getResources()));
+        }
     }
 
     @Override
