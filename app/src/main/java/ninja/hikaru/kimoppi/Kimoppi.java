@@ -3,8 +3,8 @@ package ninja.hikaru.kimoppi;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-import ninja.hikaru.kimoppi.lunandroid.Physics;
-import ninja.hikaru.kimoppi.lunandroid.Sprite;
+import com.example.lunandroid.lunandroid.Physics;
+import com.example.lunandroid.lunandroid.Sprite;
 
 /**
  * Created by hikaru on 2015/05/06.

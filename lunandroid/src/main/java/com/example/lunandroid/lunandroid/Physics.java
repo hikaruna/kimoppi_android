@@ -1,4 +1,4 @@
-package ninja.hikaru.kimoppi.lunandroid;
+package com.example.lunandroid.lunandroid;
 
 /**
  * Created by hikaru on 2015/05/07.

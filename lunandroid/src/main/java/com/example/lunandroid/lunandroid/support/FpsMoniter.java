@@ -1,4 +1,4 @@
-package ninja.hikaru.kimoppi.lunandroid.support;
+package com.example.lunandroid.lunandroid.support;
 
 /**
  * Created by hikaru on 2015/05/07.
@@ -8,8 +8,8 @@ public class FpsMoniter {
     long past;
     int wait;
     long[] pool;
-    private long count;
     float fps;
+    private long count;
 
     public FpsMoniter(int wait) {
         this.wait = wait;
@@ -17,8 +17,8 @@ public class FpsMoniter {
     }
 
     /**
-     * –ˆƒtƒŒ[ƒ€ˆê‰ñ‚¸‚ÂŒÄ‚Ô‚±‚Æ
-     * @return ‘ª’è‚µ‚½fps
+     * It must call once per frame.
+     * @return calculated real fps
      */
     public float show() {
         int i = (int)(count++ % wait);

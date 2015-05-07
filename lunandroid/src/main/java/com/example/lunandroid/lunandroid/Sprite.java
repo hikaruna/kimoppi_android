@@ -1,8 +1,7 @@
-package ninja.hikaru.kimoppi.lunandroid;
+package com.example.lunandroid.lunandroid;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Picture;
 import android.graphics.RectF;
@@ -28,12 +27,12 @@ public class Sprite {
         features = new HashMap<>();
     }
 
-    public void setParent(SpriteGroup parent) {
-        this.parent = parent;
-    }
-
     public SpriteGroup getParent() {
         return parent;
+    }
+
+    public void setParent(SpriteGroup parent) {
+        this.parent = parent;
     }
 
     public Scene getScene() {
@@ -69,10 +68,12 @@ public class Sprite {
         this.background.setColor(background);
     }
 
+    @SuppressWarnings("unchecked")
     public synchronized <T extends Feature> T useFeature(Class<T> featureClass) {
         if (!features.containsKey(featureClass)) {
             setFeature(featureClass);
         }
+
         return (T) features.get(featureClass);
     }
 
@@ -82,14 +83,16 @@ public class Sprite {
             checkDependencyResolution(feature);
             feature.setSprite(this);
             features.put(featureClass, feature);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
     private void checkDependencyResolution(Feature feature) {
+        if (feature.getDepends() == null) {
+            return;
+        }
+
         for (Class depend : feature.getDepends()) {
             if (!features.containsKey(depend)) {
                 String f = "Dependency resolution failed. %s depends %s.";

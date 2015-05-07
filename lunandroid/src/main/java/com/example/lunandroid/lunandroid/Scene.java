@@ -1,15 +1,6 @@
-package ninja.hikaru.kimoppi.lunandroid;
+package com.example.lunandroid.lunandroid;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Picture;
-import android.graphics.Rect;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by hikaru on 2015/05/07.

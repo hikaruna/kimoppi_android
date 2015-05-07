@@ -1,8 +1,6 @@
-package ninja.hikaru.kimoppi.lunandroid;
+package com.example.lunandroid.lunandroid;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 
 import java.util.LinkedList;
 import java.util.List;

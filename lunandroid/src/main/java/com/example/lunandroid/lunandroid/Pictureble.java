@@ -1,4 +1,4 @@
-package ninja.hikaru.kimoppi.lunandroid;
+package com.example.lunandroid.lunandroid;
 
 import android.graphics.Canvas;
 import android.graphics.Picture;
