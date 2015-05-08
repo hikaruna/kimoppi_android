@@ -14,10 +14,10 @@ public class MainScene extends Scene {
     public void onCreate(Scene from, Game game) {
         super.onCreate(from, game);
         setBackground(Color.argb(100, 0, 32, 255));
-        getResourceManager().setPicture(R.drawable.kimoppi0);
-        getResourceManager().setPicture(R.drawable.kimoppi1);
-        getResourceManager().setPicture(R.drawable.kimoppi2);
-        getResourceManager().setPicture(R.drawable.kimoppi3);
+        getResourceManager().setResource(R.drawable.kimoppi0);
+        getResourceManager().setResource(R.drawable.kimoppi1);
+        getResourceManager().setResource(R.drawable.kimoppi2);
+        getResourceManager().setResource(R.drawable.kimoppi3);
 
         Kimoppi kimoppi = new Kimoppi();
         addChild(kimoppi);

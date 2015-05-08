@@ -22,23 +22,27 @@ public class ResourceManager {
         this.resources = resources;
     }
 
-    public Picture getPicture(int resId) {
+    public Picture getResource(int resId) {
         if (!pictures.containsKey(resId)) {
             throw new RuntimeException("ResourceId(" + resId + ") was not registered.");
         }
         return pictures.get(resId);
     }
 
-    public Picture setPicture(int resId) {
-        if (!pictures.containsKey(resId)) {
-            Picture p = new Picture();
-            Bitmap b = BitmapFactory.decodeResource(resources, resId);
-            Canvas c = p.beginRecording(b.getWidth(), b.getHeight());
-            c.drawBitmap(b, 0, 0, null);
-            p.endRecording();
+    public void setResource(int resId) {
+        Picture p = new Picture();
+        Bitmap b = BitmapFactory.decodeResource(resources, resId);
+        Canvas c = p.beginRecording(b.getWidth(), b.getHeight());
+        c.drawBitmap(b, 0, 0, null);
+        p.endRecording();
+        pictures.put(resId, p);
+    }
 
-            pictures.put(resId, p);
+    public Picture useResource(int resId) {
+        if (!pictures.containsKey(resId)) {
+            setResource(resId);
         }
+
         return pictures.get(resId);
     }
 }

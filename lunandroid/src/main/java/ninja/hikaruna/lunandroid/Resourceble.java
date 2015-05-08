@@ -1,5 +1,6 @@
 package ninja.hikaruna.lunandroid;
 
+import android.graphics.Picture;
 import android.support.annotation.Nullable;
 
 /**
@@ -8,16 +9,24 @@ import android.support.annotation.Nullable;
 public class Resourceble extends Feature {
 
     private Integer resId;
+    private boolean useFlag;
 
     public void setResource(int resId) {
         this.resId = resId;
+        this.useFlag = false;
         if (getSprite().getScene() != null) {
             setResourceReal();
         }
     }
 
     private void setResourceReal() {
-        getPictureble().setPicture(getSprite().getScene().getResourceManager().getPicture(resId));
+        Picture p;
+        if (useFlag) {
+            p = getResourceManager().getResource(resId);
+        } else {
+            p = getResourceManager().useResource(resId);
+        }
+        getPictureble().setPicture(p);
     }
 
     @Override
@@ -35,6 +44,10 @@ public class Resourceble extends Feature {
 
     private Pictureble getPictureble() {
         return getSprite().getFeature(Pictureble.class);
+    }
+
+    private ResourceManager getResourceManager() {
+        return getSprite().getScene().getResourceManager();
     }
 }
 
