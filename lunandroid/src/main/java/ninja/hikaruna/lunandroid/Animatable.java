@@ -1,5 +1,6 @@
 package ninja.hikaruna.lunandroid;
 
+import android.graphics.Picture;
 import android.support.annotation.Nullable;
 
 /**
@@ -35,9 +36,10 @@ public class Animatable extends Feature {
      */
     public void setAnimation(Object[] animation) {
         for (Object item : animation) {
-            if (!(item instanceof Integer)) {
+            if (!(item instanceof Integer) && !(item instanceof Picture)) {
                 throw new IllegalArgumentException();
             }
+
             if (item instanceof Integer) {
                 if (!getSprite().containsFeature(Resourceble.class)) {
                     throw new RuntimeException("setAnimation(Object<Integer>[]) dpends Resourceble.");
@@ -58,6 +60,9 @@ public class Animatable extends Feature {
         if (item instanceof Integer) {
             int resId = (int) item;
             getSprite().getFeature(Resourceble.class).setResource(resId);
+        } else {
+            Picture picture = (Picture) item;
+            getSprite().getFeature(Pictureble.class).setPicture(picture);
         }
     }
 }
