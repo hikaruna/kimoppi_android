@@ -1,4 +1,4 @@
-package ninja.hikaruna.lunandroid;
+package ninja.hikaruna.lunandroid.feature;
 
 import android.graphics.Picture;
 import android.support.annotation.Nullable;

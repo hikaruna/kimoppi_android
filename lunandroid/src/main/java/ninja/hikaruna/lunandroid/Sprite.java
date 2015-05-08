@@ -8,6 +8,8 @@ import android.graphics.RectF;
 
 import java.util.LinkedList;
 
+import ninja.hikaruna.lunandroid.feature.Feature;
+
 /**
  * Created by hikaru on 2015/05/07.
  */

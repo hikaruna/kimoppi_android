@@ -1,7 +1,9 @@
-package ninja.hikaruna.lunandroid;
+package ninja.hikaruna.lunandroid.feature;
 
 import android.graphics.Canvas;
 import android.support.annotation.Nullable;
+
+import ninja.hikaruna.lunandroid.Sprite;
 
 /**
  * Created by hikaru on 2015/05/07.

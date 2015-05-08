@@ -7,10 +7,10 @@ import android.graphics.Picture;
 import android.graphics.RectF;
 
 import ninja.hikaru.kimoppi.R;
-import ninja.hikaruna.lunandroid.Animatable;
-import ninja.hikaruna.lunandroid.Physics;
-import ninja.hikaruna.lunandroid.Resourceble;
 import ninja.hikaruna.lunandroid.Sprite;
+import ninja.hikaruna.lunandroid.feature.Animatable;
+import ninja.hikaruna.lunandroid.feature.Physics;
+import ninja.hikaruna.lunandroid.feature.Resourceble;
 
 /**
  * Created by hikaru on 2015/05/06.

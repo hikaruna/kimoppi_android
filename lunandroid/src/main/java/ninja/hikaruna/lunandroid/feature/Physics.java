@@ -1,4 +1,4 @@
-package ninja.hikaruna.lunandroid;
+package ninja.hikaruna.lunandroid.feature;
 
 /**
  * Created by hikaru on 2015/05/07.
