@@ -4,6 +4,7 @@ import android.graphics.Picture;
 import android.support.annotation.Nullable;
 
 import ninja.hikaruna.lunandroid.ResourceManager;
+import ninja.hikaruna.lunandroid.Scene;
 
 /**
  * Created by hikaru on 2015/05/08.
@@ -32,7 +33,7 @@ public class Resourceble extends Feature {
     }
 
     @Override
-    public void onSceneSetted() {
+    public void onSceneSetted(Scene scene) {
         if (resId != null) {
             setResourceReal();
         }

@@ -6,10 +6,9 @@ import android.graphics.Paint;
 import android.graphics.Picture;
 import android.graphics.RectF;
 
-import ninja.hikaru.kimoppi.R;
 import ninja.hikaruna.lunandroid.Sprite;
 import ninja.hikaruna.lunandroid.feature.Animatable;
-import ninja.hikaruna.lunandroid.feature.Physics;
+import ninja.hikaruna.lunandroid.feature.Collisionable;
 import ninja.hikaruna.lunandroid.feature.Resourceble;
 
 /**
@@ -18,14 +17,13 @@ import ninja.hikaruna.lunandroid.feature.Resourceble;
 public class Kimoppi extends Sprite {
 
     private static Picture oval;
+    private final Collisionable col;
 
     public Kimoppi() {
-        x = (int) (Math.random() * 1000);
-        y = (int) (Math.random() * 2000);
+        x = 509;
+        y = 500;
         w = 100;
         h = 100;
-        setBackground(Color.RED);
-
 
         if (oval == null) {
             Picture pic = new Picture();
@@ -40,22 +38,25 @@ public class Kimoppi extends Sprite {
         }
 
         useFeature(Resourceble.class);
-        useFeature(Animatable.class).setAnimation(new Object[]{
+        Animatable anim = useFeature(Animatable.class);
+        anim.setDeley(1);
+        anim.setAnimation(new Object[]{
                 R.drawable.kimoppi0,
                 R.drawable.kimoppi1,
                 R.drawable.kimoppi2,
-                R.drawable.kimoppi3,
-                oval
+                R.drawable.kimoppi3
         });
-
-        useFeature(Physics.class);
+        col = useFeature(Collisionable.class);
+        col.setGroup(0);
     }
 
     @Override
     public void update() {
         super.update();
+    }
 
-        useFeature(Physics.class).speedX += (Math.random() * 1) - 0.5f;
-        useFeature(Physics.class).speedY += (Math.random() * 1) - 0.5f;
+    @Override
+    public void draw(Canvas c) {
+        super.draw(c);
     }
 }

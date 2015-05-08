@@ -65,4 +65,8 @@ public class Animatable extends Feature {
             getSprite().getFeature(Pictureble.class).setPicture(picture);
         }
     }
+
+    public void setDeley(int deley) {
+        this.deley = deley;
+    }
 }

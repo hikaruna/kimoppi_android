@@ -3,7 +3,6 @@ package ninja.hikaruna.lunandroid;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Picture;
 import android.graphics.RectF;
 
 import java.util.LinkedList;
@@ -17,14 +16,12 @@ public class Sprite {
 
     public int x, y;
     public int w, h;
-    Picture picture;
     Paint background;
 
     private LinkedList<Feature> features;
     private SpriteGroup parent;
 
     public Sprite() {
-        picture = new Picture();
         features = new LinkedList<>();
     }
 
@@ -145,9 +142,9 @@ public class Sprite {
         }
     }
 
-    public void onSceneSetted() {
+    public void onSceneSetted(Scene scene) {
         for (Feature feature : features) {
-            feature.onSceneSetted();
+            feature.onSceneSetted(scene);
         }
 
     }

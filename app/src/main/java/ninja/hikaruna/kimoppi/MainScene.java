@@ -2,7 +2,6 @@ package ninja.hikaruna.kimoppi;
 
 import android.graphics.Color;
 
-import ninja.hikaru.kimoppi.R;
 import ninja.hikaruna.lunandroid.Game;
 import ninja.hikaruna.lunandroid.Scene;
 
@@ -22,7 +21,7 @@ public class MainScene extends Scene {
         Kimoppi kimoppi = new Kimoppi();
         addChild(kimoppi);
         for (int i = 0; i < 300; i++) {
-            addChild(new Kimoppi());
+            addChild(new Bullet((int) (Math.random() * w), (int) (Math.random() * h)));
         }
     }
 }

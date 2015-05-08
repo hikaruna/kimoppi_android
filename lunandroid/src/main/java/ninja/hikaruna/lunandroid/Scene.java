@@ -8,10 +8,12 @@ import android.content.Context;
 public class Scene extends SpriteGroup {
     private Game game;
     private ResourceManager resourceManager;
+    private CollisionManager collisionManager;
 
     public void onCreate(Scene from, Game game) {
         this.game = game;
         this.resourceManager = new ResourceManager(getContext().getResources());
+        this.collisionManager = new CollisionManager();
         x = game.getWidth()/2;
         y = game.getHeight()/2;
         w = game.getWidth();
@@ -31,10 +33,20 @@ public class Scene extends SpriteGroup {
     @Override
     public synchronized void addChild(Sprite child) {
         super.addChild(child);
-        child.onSceneSetted();
+        child.onSceneSetted(this);
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        collisionManager.update();
     }
 
     public ResourceManager getResourceManager() {
         return resourceManager;
+    }
+
+    public CollisionManager getCollisionManager() {
+        return collisionManager;
     }
 }
