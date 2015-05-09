@@ -8,7 +8,7 @@ import android.graphics.RectF;
 
 import ninja.hikaruna.lunandroid.Sprite;
 import ninja.hikaruna.lunandroid.feature.Animatable;
-import ninja.hikaruna.lunandroid.feature.Collisionable;
+import ninja.hikaruna.lunandroid.feature.RectCollider;
 import ninja.hikaruna.lunandroid.feature.Resourceble;
 
 /**
@@ -17,7 +17,7 @@ import ninja.hikaruna.lunandroid.feature.Resourceble;
 public class Kimoppi extends Sprite {
 
     private static Picture oval;
-    private final Collisionable col;
+    private final RectCollider col;
 
     public Kimoppi() {
         x = 509;
@@ -46,8 +46,9 @@ public class Kimoppi extends Sprite {
                 R.drawable.kimoppi2,
                 R.drawable.kimoppi3
         });
-        col = useFeature(Collisionable.class);
+        col = useFeature(RectCollider.class);
         col.setGroup(0);
+        col.setDebugMode(true);
     }
 
     @Override

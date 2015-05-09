@@ -7,7 +7,7 @@ import android.graphics.Picture;
 import android.graphics.RectF;
 
 import ninja.hikaruna.lunandroid.Sprite;
-import ninja.hikaruna.lunandroid.feature.Collisionable;
+import ninja.hikaruna.lunandroid.feature.RectCollider;
 import ninja.hikaruna.lunandroid.feature.Physics;
 import ninja.hikaruna.lunandroid.feature.Pictureble;
 
@@ -38,8 +38,8 @@ public class Bullet extends Sprite {
         physics.speedX = (int) (Math.random() * 10 - 5);
         physics.speedY = (int) (Math.random() * 10 - 5);
 
-        Collisionable col = useFeature(Collisionable.class);
+        RectCollider col = useFeature(RectCollider.class);
         col.setGroup(20);
-        col.debugMode = true;
+        col.setDebugMode(true);
     }
 }

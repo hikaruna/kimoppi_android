@@ -38,6 +38,7 @@ public class FeatureManager {
             resolveDependency(feature);
             feature.setSprite(sprite);
             features.add(0, feature);
+            feature.onSpriteSetted(sprite);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

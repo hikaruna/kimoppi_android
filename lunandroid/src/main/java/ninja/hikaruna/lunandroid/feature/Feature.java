@@ -20,6 +20,12 @@ public abstract class Feature {
         return null;
     }
 
+    public void onSpriteSetted(Sprite sprite) {
+    }
+
+    public void onSceneSetted(Scene scene) {
+    }
+
     public void onUpdate() {
     }
 
@@ -35,8 +41,5 @@ public abstract class Feature {
     }
 
     public void onDestroy() {
-    }
-
-    public void onSceneSetted(Scene scene) {
     }
 }
