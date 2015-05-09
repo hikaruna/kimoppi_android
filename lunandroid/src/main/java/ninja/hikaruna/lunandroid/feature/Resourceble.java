@@ -46,7 +46,7 @@ public class Resourceble extends Feature {
     }
 
     private Pictureble getPictureble() {
-        return getSprite().getFeature(Pictureble.class);
+        return getSprite().getFeatureManager().getFeature(Pictureble.class);
     }
 
     private ResourceManager getResourceManager() {

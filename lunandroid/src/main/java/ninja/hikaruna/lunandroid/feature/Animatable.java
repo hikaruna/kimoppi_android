@@ -41,7 +41,7 @@ public class Animatable extends Feature {
             }
 
             if (item instanceof Integer) {
-                if (!getSprite().containsFeature(Resourceble.class)) {
+                if (!getSprite().getFeatureManager().containsFeature(Resourceble.class)) {
                     throw new RuntimeException("setAnimation(Object<Integer>[]) dpends Resourceble.");
                 }
             }
@@ -59,10 +59,10 @@ public class Animatable extends Feature {
         Object item = animation[((int) ((tick++ / deley) % animation.length))];
         if (item instanceof Integer) {
             int resId = (int) item;
-            getSprite().getFeature(Resourceble.class).setResource(resId);
+            getSprite().getFeatureManager().getFeature(Resourceble.class).setResource(resId);
         } else {
             Picture picture = (Picture) item;
-            getSprite().getFeature(Pictureble.class).setPicture(picture);
+            getSprite().getFeatureManager().getFeature(Pictureble.class).setPicture(picture);
         }
     }
 

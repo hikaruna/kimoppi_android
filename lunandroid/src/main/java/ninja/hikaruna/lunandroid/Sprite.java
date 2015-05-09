@@ -8,6 +8,7 @@ import android.graphics.RectF;
 import java.util.LinkedList;
 
 import ninja.hikaruna.lunandroid.feature.Feature;
+import ninja.hikaruna.lunandroid.support.FeatureManager;
 
 /**
  * Created by hikaru on 2015/05/07.
@@ -18,11 +19,11 @@ public class Sprite {
     public int w, h;
     Paint background;
 
-    private LinkedList<Feature> features;
     private SpriteGroup parent;
+    private FeatureManager featureManager;
 
     public Sprite() {
-        features = new LinkedList<>();
+        featureManager = new FeatureManager(this);
     }
 
     public SpriteGroup getParent() {
@@ -66,87 +67,31 @@ public class Sprite {
         this.background.setColor(background);
     }
 
-    public synchronized <T extends Feature> T useFeature(Class<T> featureClass) {
-        if (!containsFeature(featureClass)) {
-            setFeature(featureClass);
-        }
-
-        return getFeature(featureClass);
-    }
-
-    private synchronized void setFeature(Class<? extends Feature> featureClass) {
-        try {
-            if (containsFeature(featureClass)) {
-                throw new RuntimeException(featureClass.getSimpleName() + "is alredy enabled.");
-            }
-            Feature feature = featureClass.newInstance();
-            resolveDependency(feature);
-            feature.setSprite(this);
-            features.add(0, feature);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public synchronized boolean containsFeature(Class<? extends Feature> featureClass) {
-        for (Feature feature : features) {
-            if (feature.getClass().equals(featureClass)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T extends Feature> T getFeature(Class<T> featureClass) {
-        for (Feature feature : features) {
-            if (feature.getClass().equals(featureClass)) {
-                return (T) feature;
-            }
-        }
-        return null;
-    }
-
-    private boolean resolveDependency(Feature feature) {
-        if (feature.getDepends() == null) {
-            return true;
-        }
-
-        for (Class<? extends Feature> depend : feature.getDepends()) {
-            if (!containsFeature(depend)) {
-                setFeature(depend);
-                return false;
-            }
-        }
-        return true;
-    }
-
     public void update() {
-        for (Feature feature : features) {
-            feature.onUpdate();
-        }
+        featureManager.update();
     }
 
     public void draw(Canvas c) {
         if (background != null) {
             c.drawRect(getRect(), background);
         }
-        for (Feature feature : features) {
-            feature.onDraw(c);
-        }
+        featureManager.draw(c);
     }
 
     public void destroy() {
-        for (Feature feature : features) {
-            feature.onDestroy();
-        }
+        featureManager.destroy();
     }
 
     public void onSceneSetted(Scene scene) {
-        for (Feature feature : features) {
-            feature.onSceneSetted(scene);
-        }
+        featureManager.onSceneSetted(scene);
+    }
 
+    public <T extends Feature> T useFeature(Class<T> featureClass) {
+        return featureManager.useFeature(featureClass);
+    }
+
+    public FeatureManager getFeatureManager() {
+        return featureManager;
     }
 }
 
