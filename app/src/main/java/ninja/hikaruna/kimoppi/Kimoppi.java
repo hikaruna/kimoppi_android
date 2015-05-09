@@ -39,7 +39,7 @@ public class Kimoppi extends Sprite {
 
         useFeature(Resourceble.class);
         Animatable anim = useFeature(Animatable.class);
-        anim.setDeley(1);
+        anim.setDeley(5);
         anim.setAnimation(new Object[]{
                 R.drawable.kimoppi0,
                 R.drawable.kimoppi1,
