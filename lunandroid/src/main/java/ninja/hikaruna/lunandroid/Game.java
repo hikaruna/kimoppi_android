@@ -5,7 +5,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.TextureView;
+import android.view.View;
 
 import ninja.hikaruna.lunandroid.support.FpsManager;
 import ninja.hikaruna.lunandroid.support.FpsMoniter;
@@ -19,11 +21,18 @@ public class Game implements Runnable {
     private final TextureView view;
     private final FpsManager fpsManager;
     private final FpsMoniter fpsMoniter;
+    public long frameCount;
     private Scene currentScene;
     private Thread thread;
 
     public Game(TextureView view) {
         this.view = view;
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return getCurrentScene().onTouch(v, event);
+            }
+        });
         this.fpsManager = new FpsManager();
         this.fpsMoniter = new FpsMoniter(10);
 
@@ -52,6 +61,7 @@ public class Game implements Runnable {
         p.setColor(Color.WHITE);
         p.setTextSize(30f);
         c.drawText(String.format("%5.02fFps", fpsMoniter.show()), 100, 100, p);
+        frameCount++;
     }
 
     public synchronized void start() {

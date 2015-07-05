@@ -38,6 +38,10 @@ public class Sprite {
         return getParent().getScene();
     }
 
+    public Game getGame() {
+        return getParent().getGame();
+    }
+
     public Context getContext() {
         return getParent().getContext();
     }

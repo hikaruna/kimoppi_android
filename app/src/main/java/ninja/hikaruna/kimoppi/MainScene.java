@@ -20,7 +20,7 @@ public class MainScene extends Scene {
 
         Kimoppi kimoppi = new Kimoppi();
         addChild(kimoppi);
-        for (int i = 0; i < 300; i++) {
+        for (int i = 0; i < 30; i++) {
             addChild(new Bullet((int) (Math.random() * w), (int) (Math.random() * h)));
         }
     }
