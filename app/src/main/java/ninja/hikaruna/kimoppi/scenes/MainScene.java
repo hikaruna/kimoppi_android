@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import ninja.hikaruna.kimoppi.R;
 import ninja.hikaruna.kimoppi.sprites.Bullet;
 import ninja.hikaruna.kimoppi.sprites.Kimoppi;
+import ninja.hikaruna.kimoppi.sprites.Punipuni;
 import ninja.hikaruna.lunandroid.Game;
 import ninja.hikaruna.lunandroid.Scene;
 import ninja.hikaruna.lunandroid.Sprite;
@@ -38,5 +39,7 @@ public class MainScene extends Scene {
         for (int i = 0; i < 30; i++) {
             addChild(new Bullet((int) (Math.random() * w), (int) (Math.random() * h)));
         }
+
+        addChild(new Punipuni());
     }
 }

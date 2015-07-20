@@ -67,24 +67,30 @@ public class Kimoppi extends Sprite {
             @Override
             public void onControll(MotionEvent event) {
                 Log.d("Ctrl", "" + getGame().frameCount + "F: " + event.toString());
+                float tX = event.getX() - getGame().getLeft();
+                float tY = event.getY() - getGame().getTop();
 
-                Vector2D v = new Vector2D(event.getX(), event.getY());
-                Vector2D selfV = new Vector2D(x, y);
-                Vector2D subVector = v.subtraction(selfV).getNomalize().multiplication(speed);
+                Vector2D v = new Vector2D(tX, tY);
+                Vector2D selfV = new Vector2D(getAbsoluteX(), getAbsoluteY());
+                Vector2D v2 = v.subtraction(selfV);
+
+                Vector2D v3 = v2.getNomalize();
+                Vector2D v4 = v3.multiplication(2);
+
                 Physics p = useFeature(Physics.class);
-                useFeature(Physics.class).speedX = subVector.getX();
-                useFeature(Physics.class).speedY = subVector.getY();
+                p.speedX += v4.getX();
+                p.speedY += v4.getY();
+                if(p.speedX > 30F) {
+                    p.speedX = 30F;
+                }else if(p.speedX < -30F) {
+                    p.speedX = -30F;
+                }
+                if(p.speedY > 30F) {
+                    p.speedY = 30F;
+                }else if(p.speedY < -30F) {
+                    p.speedY = -30F;
+                }
             }
         });
-    }
-
-    @Override
-    public void update() {
-        super.update();
-    }
-
-    @Override
-    public void draw(Canvas c) {
-        super.draw(c);
     }
 }

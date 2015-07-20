@@ -108,4 +108,16 @@ public class Game implements Runnable {
     public int getHeight() {
         return view.getHeight();
     }
+
+    public float getTop() {
+        int[] xy = new int[2];
+        view.getLocationInWindow(xy);
+        return xy[1];
+    }
+
+    public float getLeft() {
+        int[] xy = new int[2];
+        view.getLocationInWindow(xy);
+        return xy[0];
+    }
 }

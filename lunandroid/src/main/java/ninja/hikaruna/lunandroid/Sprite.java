@@ -17,7 +17,8 @@ public class Sprite {
 
     public int x, y;
     public int w, h;
-    Paint background;
+    private Paint background;
+    private boolean hide;
 
     private SpriteGroup parent;
     private FeatureManager featureManager;
@@ -72,42 +73,73 @@ public class Sprite {
     }
 
     public float getAbsoluteX() {
-        return getParent().getAbsoluteX() + x;
+        return getParent().getAbsoluteLeft() + x;
+    }
+
+    public void setAbsoluteX(float x) {
+        this.x = (int) (x - getParent().getAbsoluteLeft());
     }
 
     public float getAbsoluteY() {
-        return getParent().getAbsoluteY() + y;
+        return getParent().getAbsoluteTop() + y;
+    }
+
+    public void setAbsoluteY(float y) {
+        this.y = (int) (y - getParent().getAbsoluteTop());
     }
 
     public float getAbsoluteTop() {
-        return getParent().getAbsoluteTop() + getTop();
+        return getAbsoluteY() - (float) h / 2;
     }
 
     public float getAbsoluteBottom() {
-        return getParent().getAbsoluteBottom() + getBottom();
+        return getAbsoluteY() + (float) h / 2;
     }
 
     public float getAbsoluteLeft() {
-        return getParent().getAbsoluteLeft() + getLeft();
+        return getAbsoluteX() - (float) w / 2;
     }
 
     public float getAbsoluteRight() {
-        return getParent().getAbsoluteRight() + getRight();
+        return getAbsoluteX() + (float) w / 2;
     }
 
     public RectF getAbsoluteRect() {
         return new RectF(getAbsoluteLeft(), getAbsoluteTop(), getAbsoluteRight(), getAbsoluteBottom());
     }
 
+    public void show() {
+        hide = false;
+    }
+
+    public void hide() {
+        hide = true;
+    }
+
+    public boolean isHide() {
+        return hide;
+    }
+
     public void update() {
         featureManager.update();
+        onUpdate();
+    }
+
+    public void onUpdate() {
     }
 
     public void draw(Canvas c) {
-        if (background != null) {
-            c.drawRect(getRect(), background);
+        if(hide) {
+            return;
         }
+        if (background != null) {
+            c.drawRect(getAbsoluteRect(), background);
+        }
+        onDraw(c);
         featureManager.draw(c);
+    }
+
+    public void onDraw(Canvas c) {
     }
 
     public void destroy() {

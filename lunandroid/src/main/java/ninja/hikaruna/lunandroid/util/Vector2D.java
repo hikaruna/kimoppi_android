@@ -26,7 +26,17 @@ public class Vector2D {
     }
 
     public Vector2D getNomalize() {
-        return new Vector2D(x/getScale(), y/getScale());
+        float nX;
+            nX = x / getScale();
+        if(Float.isNaN(nX)) {
+            nX = 1;
+        }
+        float nY;
+        nY = y / getScale();
+        if(Float.isNaN(nY)) {
+            nY = 1;
+        }
+        return new Vector2D(nX, nY);
     }
 
     public Vector2D addition(Vector2D other) {
@@ -39,5 +49,9 @@ public class Vector2D {
 
     public Vector2D multiplication(float other) {
         return new Vector2D(x * other, y * other);
+    }
+
+    public Vector2D division(float other) {
+        return new Vector2D(x / other, y / other);
     }
 }

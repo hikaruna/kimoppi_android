@@ -56,6 +56,16 @@ public class Scene extends SpriteGroup {
         return this;
     }
 
+    @Override
+    public float getAbsoluteX() {
+        return x;
+    }
+
+    @Override
+    public float getAbsoluteY() {
+        return y;
+    }
+
     public ResourceManager getResourceManager() {
         return resourceManager;
     }
