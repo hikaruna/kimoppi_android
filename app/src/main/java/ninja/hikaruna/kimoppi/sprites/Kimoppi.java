@@ -61,7 +61,9 @@ public class Kimoppi extends Sprite {
         col.setGroup(0);
         col.setDebugMode(true);
 
-        useFeature(Physics.class);
+        Physics physics = useFeature(Physics.class);
+        physics.setSpeedLimitX(30F);
+        physics.setSpeedLimitY(30F);
 
         useFeature(Controllable.class).setController(new Controllable.Controller() {
             @Override
@@ -80,16 +82,6 @@ public class Kimoppi extends Sprite {
                 Physics p = useFeature(Physics.class);
                 p.speedX += v4.getX();
                 p.speedY += v4.getY();
-                if(p.speedX > 30F) {
-                    p.speedX = 30F;
-                }else if(p.speedX < -30F) {
-                    p.speedX = -30F;
-                }
-                if(p.speedY > 30F) {
-                    p.speedY = 30F;
-                }else if(p.speedY < -30F) {
-                    p.speedY = -30F;
-                }
             }
         });
     }
