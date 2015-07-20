@@ -3,6 +3,7 @@ package ninja.hikaruna.lunandroid;
 import android.app.Activity;
 import android.graphics.SurfaceTexture;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.TextureView;
 
 import com.example.lunandroid.R;
@@ -10,7 +11,7 @@ import com.example.lunandroid.R;
 /**
  * Created by hikaru on 2015/05/08.
  */
-public class GameActivity extends Activity implements TextureView.SurfaceTextureListener {
+public class GameActivity extends AppCompatActivity implements TextureView.SurfaceTextureListener {
 
     private boolean gameCreated;
     private TextureView view;
@@ -54,6 +55,14 @@ public class GameActivity extends Activity implements TextureView.SurfaceTexture
     @Override
     public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
 
+    }
+
+    /**
+     * get Game instance.
+     * this method sould call after gameCreated().
+     */
+    public Game getGame() {
+        return game;
     }
 
     public void onGamePause() {
