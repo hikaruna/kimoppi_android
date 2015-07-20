@@ -51,6 +51,11 @@ public class Scene extends SpriteGroup {
         collisionManager.update();
     }
 
+    @Override
+    public SpriteGroup getParent() {
+        return this;
+    }
+
     public ResourceManager getResourceManager() {
         return resourceManager;
     }

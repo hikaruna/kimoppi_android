@@ -1,5 +1,6 @@
 package ninja.hikaruna.kimoppi;
 
+import ninja.hikaruna.kimoppi.scenes.MainScene;
 import ninja.hikaruna.lunandroid.Game;
 import ninja.hikaruna.lunandroid.GameActivity;
 

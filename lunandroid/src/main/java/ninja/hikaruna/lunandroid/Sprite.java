@@ -71,6 +71,34 @@ public class Sprite {
         this.background.setColor(background);
     }
 
+    public float getAbsoluteX() {
+        return getParent().getAbsoluteX() + x;
+    }
+
+    public float getAbsoluteY() {
+        return getParent().getAbsoluteY() + y;
+    }
+
+    public float getAbsoluteTop() {
+        return getParent().getAbsoluteTop() + getTop();
+    }
+
+    public float getAbsoluteBottom() {
+        return getParent().getAbsoluteBottom() + getBottom();
+    }
+
+    public float getAbsoluteLeft() {
+        return getParent().getAbsoluteLeft() + getLeft();
+    }
+
+    public float getAbsoluteRight() {
+        return getParent().getAbsoluteRight() + getRight();
+    }
+
+    public RectF getAbsoluteRect() {
+        return new RectF(getAbsoluteLeft(), getAbsoluteTop(), getAbsoluteRight(), getAbsoluteBottom());
+    }
+
     public void update() {
         featureManager.update();
     }
