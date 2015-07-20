@@ -8,6 +8,8 @@ public class Physics extends Feature {
     public float speedX, speedY;
     private Float speedLimitX;
     private Float speedLimitY;
+    private Float resistance = 0F;
+
 
     @Override
     public void onUpdate() {
@@ -27,6 +29,9 @@ public class Physics extends Feature {
             }
         }
 
+        speedX *= 1 - resistance;
+        speedY *= 1 - resistance;
+
         getSprite().x += speedX;
         getSprite().y += speedY;
     }
@@ -37,5 +42,9 @@ public class Physics extends Feature {
 
     public void setSpeedLimitY(float speedLimitY) {
         this.speedLimitY = speedLimitY;
+    }
+
+    public void setResistance(float resistance) {
+        this.resistance = resistance;
     }
 }

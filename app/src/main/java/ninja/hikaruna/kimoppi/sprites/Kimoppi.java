@@ -64,6 +64,7 @@ public class Kimoppi extends Sprite {
         Physics physics = useFeature(Physics.class);
         physics.setSpeedLimitX(30F);
         physics.setSpeedLimitY(30F);
+        physics.setResistance(0.1F);
 
         useFeature(Controllable.class).setController(new Controllable.Controller() {
             @Override
