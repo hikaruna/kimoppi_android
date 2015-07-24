@@ -4,6 +4,10 @@ import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
 
+import ninja.hikaruna.lunandroid.support.CollisionManager;
+import ninja.hikaruna.lunandroid.support.ControllerManager;
+import ninja.hikaruna.lunandroid.support.ResourceManager;
+
 /**
  * Created by hikaru on 2015/05/07.
  */

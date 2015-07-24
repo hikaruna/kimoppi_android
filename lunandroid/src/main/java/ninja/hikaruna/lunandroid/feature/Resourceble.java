@@ -3,7 +3,7 @@ package ninja.hikaruna.lunandroid.feature;
 import android.graphics.Picture;
 import android.support.annotation.Nullable;
 
-import ninja.hikaruna.lunandroid.ResourceManager;
+import ninja.hikaruna.lunandroid.support.ResourceManager;
 import ninja.hikaruna.lunandroid.Scene;
 
 /**

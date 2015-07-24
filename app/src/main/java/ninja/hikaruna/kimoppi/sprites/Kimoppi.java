@@ -8,8 +8,6 @@ import android.graphics.RectF;
 import android.util.Log;
 import android.view.MotionEvent;
 
-import java.util.Vector;
-
 import ninja.hikaruna.kimoppi.R;
 import ninja.hikaruna.lunandroid.Sprite;
 import ninja.hikaruna.lunandroid.feature.Animatable;
@@ -19,13 +17,9 @@ import ninja.hikaruna.lunandroid.feature.RectCollider;
 import ninja.hikaruna.lunandroid.feature.Resourceble;
 import ninja.hikaruna.lunandroid.util.Vector2D;
 
-/**
- * Created by hikaru on 2015/05/06.
- */
 public class Kimoppi extends Sprite {
 
     private static Picture oval;
-    private final float speed;
 
     public Kimoppi() {
         x = 509;
@@ -33,7 +27,6 @@ public class Kimoppi extends Sprite {
         w = 100;
         h = 100;
 
-        speed = 3.0F;
 
         if (oval == null) {
             Picture pic = new Picture();
@@ -62,27 +55,27 @@ public class Kimoppi extends Sprite {
         col.setDebugMode(true);
 
         Physics physics = useFeature(Physics.class);
-        physics.setSpeedLimitX(30F);
-        physics.setSpeedLimitY(30F);
-        physics.setResistance(0.1F);
+        physics.setResistance(0.03F);
+        physics.setDebugMode(true);
 
         useFeature(Controllable.class).setController(new Controllable.Controller() {
             @Override
             public void onControll(MotionEvent event) {
                 Log.d("Ctrl", "" + getGame().frameCount + "F: " + event.toString());
-                float tX = event.getX() - getGame().getLeft();
-                float tY = event.getY() - getGame().getTop();
+                float eX = event.getX() - getGame().getLeft();
+                float eY = event.getY() - getGame().getTop();
 
-                Vector2D v = new Vector2D(tX, tY);
-                Vector2D selfV = new Vector2D(getAbsoluteX(), getAbsoluteY());
-                Vector2D v2 = v.subtraction(selfV);
-
-                Vector2D v3 = v2.getNomalize();
-                Vector2D v4 = v3.multiplication(2);
-
+                Vector2D eV = new Vector2D(eX, eY); // タッチしたところ
+                Vector2D position = new Vector2D(getAbsoluteX(), getAbsoluteY()); // きもッピの場所
                 Physics p = useFeature(Physics.class);
-                p.speedX += v4.getX();
-                p.speedY += v4.getY();
+                Vector2D speed = new Vector2D(p.speedX, p.speedY).multiplication(30F);
+                Vector2D defaultDist = position.addition(speed); // なにもしない時のきもっぴの到着点
+                Vector2D subV = eV.subtraction(defaultDist); // 到着点とタッチしたところの差のベクトル
+                Vector2D subV2 = subV.division(400);
+
+
+                p.speedX += subV2.getX();
+                p.speedY += subV2.getY();
             }
         });
     }

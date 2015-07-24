@@ -3,7 +3,7 @@ package ninja.hikaruna.lunandroid.feature;
 import android.graphics.Canvas;
 import android.support.annotation.Nullable;
 
-import ninja.hikaruna.lunandroid.CollisionManager;
+import ninja.hikaruna.lunandroid.support.CollisionManager;
 import ninja.hikaruna.lunandroid.Scene;
 import ninja.hikaruna.lunandroid.Sprite;
 

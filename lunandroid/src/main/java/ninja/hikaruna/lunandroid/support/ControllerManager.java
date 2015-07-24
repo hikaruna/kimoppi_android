@@ -1,4 +1,4 @@
-package ninja.hikaruna.lunandroid;
+package ninja.hikaruna.lunandroid.support;
 
 import android.view.MotionEvent;
 import android.view.View;

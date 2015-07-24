@@ -1,4 +1,4 @@
-package ninja.hikaruna.lunandroid;
+package ninja.hikaruna.lunandroid.support;
 
 import java.util.ArrayList;
 import java.util.HashMap;

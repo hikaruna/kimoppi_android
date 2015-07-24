@@ -3,14 +3,6 @@ package ninja.hikaruna.lunandroid.feature;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.RectF;
-
-import java.util.LinkedList;
-import java.util.List;
-
-import ninja.hikaruna.lunandroid.CollisionManager;
-import ninja.hikaruna.lunandroid.Scene;
-import ninja.hikaruna.lunandroid.Sprite;
 
 /**
  * Created by hikaru on 2015/05/09.

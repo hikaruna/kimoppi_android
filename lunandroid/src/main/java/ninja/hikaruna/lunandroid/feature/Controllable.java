@@ -2,7 +2,7 @@ package ninja.hikaruna.lunandroid.feature;
 
 import android.view.MotionEvent;
 
-import ninja.hikaruna.lunandroid.ControllerManager;
+import ninja.hikaruna.lunandroid.support.ControllerManager;
 import ninja.hikaruna.lunandroid.Scene;
 
 /**

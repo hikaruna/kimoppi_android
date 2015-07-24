@@ -13,6 +13,11 @@ public class Vector2D {
         this.y = y;
     }
 
+    public Vector2D(double x, double y) {
+        this.x = (float) x;
+        this.y = (float) y;
+    }
+
     public float getX() {
         return x;
     }
@@ -21,22 +26,18 @@ public class Vector2D {
         return y;
     }
 
-    public float getScale() {
-        return (float) Math.sqrt((double) ((x * x) + (y + y)));
+    public float scale() {
+        return (float) Math.sqrt((double) ((x * x) + (y * y)));
     }
 
-    public Vector2D getNomalize() {
-        float nX;
-            nX = x / getScale();
-        if(Float.isNaN(nX)) {
-            nX = 1;
+    public Vector2D nomalize() throws ZeroDividedException {
+        try {
+            float nX = x / scale();
+            float nY = y / scale();
+            return new Vector2D(nX, nY);
+        }catch (ArithmeticException e) {
+            throw new ZeroDividedException();
         }
-        float nY;
-        nY = y / getScale();
-        if(Float.isNaN(nY)) {
-            nY = 1;
-        }
-        return new Vector2D(nX, nY);
     }
 
     public Vector2D addition(Vector2D other) {
@@ -53,5 +54,16 @@ public class Vector2D {
 
     public Vector2D division(float other) {
         return new Vector2D(x / other, y / other);
+    }
+
+    public Vector2D rotation(double angleRadian) {
+        double nX = x * Math.cos(angleRadian) - y * Math.sin(angleRadian);
+        double nY = x * Math.sin(angleRadian) + y * Math.cos(angleRadian);
+        return new Vector2D(nX, nY);
+    }
+
+    @Override
+    public String toString() {
+        return "(" + getX() + ", " + getY() + ")";
     }
 }
