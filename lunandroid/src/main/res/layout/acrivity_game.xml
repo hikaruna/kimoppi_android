@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextureView
-        android:id="@+id/gameview"
+    <ninja.hikaruna.lunandroid.Game
+        android:id="@+id/game"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

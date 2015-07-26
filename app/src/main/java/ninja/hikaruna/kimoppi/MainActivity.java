@@ -1,10 +1,7 @@
 package ninja.hikaruna.kimoppi;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.PersistableBundle;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,16 +34,16 @@ public class MainActivity extends GameActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_scene_main:
-                if(getGame().getCurrentScene() instanceof MainScene) {
+                if (getGame().getCurrentScene() instanceof MainScene) {
                     getGame().setCurrentScene(mainScene = new MainScene());
-                }else {
+                } else {
                     getGame().setCurrentScene(mainScene);
                 }
                 return true;
             case R.id.action_scene_touch:
-                if(getGame().getCurrentScene() instanceof TouchScene) {
+                if (getGame().getCurrentScene() instanceof TouchScene) {
                     getGame().setCurrentScene(touchScene = new TouchScene());
-                }else {
+                } else {
                     getGame().setCurrentScene(touchScene);
                 }
                 return true;
@@ -55,10 +52,20 @@ public class MainActivity extends GameActivity {
     }
 
     @Override
-    protected void onGameCreated(Game game) {
+    public void onGameCreated(Game game) {
         game.getFpsManager().setFps(30);
         mainScene = new MainScene();
         touchScene = new TouchScene();
         game.setCurrentScene(mainScene);
+    }
+
+    @Override
+    public void onGameResume() {
+
+    }
+
+    @Override
+    public void onGamePause() {
+
     }
 }

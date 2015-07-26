@@ -1,9 +1,13 @@
 package ninja.hikaruna.lunandroid;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.SurfaceTexture;
+import android.os.Build;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.TextureView;
@@ -13,55 +17,92 @@ import ninja.hikaruna.lunandroid.support.FpsManager;
 import ninja.hikaruna.lunandroid.support.FpsMoniter;
 
 /**
- * Created by hikaru on 2015/05/06.
+ * Created by hikaru on 2015/07/26.
  */
-public class Game implements Runnable {
+public class Game extends TextureView implements Runnable, TextureView.SurfaceTextureListener {
 
     private static final String TAG = "LUNA";
-    private final TextureView view;
-    private final FpsManager fpsManager;
-    private final FpsMoniter fpsMoniter;
+    private FpsManager fpsManager;
+    private FpsMoniter fpsMoniter;
     public long frameCount;
     private Scene currentScene;
     private Thread thread;
+    private OnGameListener listener;
+    private boolean gameCreated;
 
-    public Game(TextureView view) {
-        this.view = view;
-        view.setOnTouchListener(new View.OnTouchListener() {
+
+    public Game(Context context) {
+        super(context);
+        init();
+    }
+
+    public Game(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init();
+    }
+
+    public Game(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public Game(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        init();
+    }
+
+    public void init() {
+        this.fpsManager = new FpsManager();
+        this.fpsMoniter = new FpsMoniter(10);
+
+        setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return getCurrentScene().onTouch(v, event);
             }
         });
-        this.fpsManager = new FpsManager();
-        this.fpsMoniter = new FpsMoniter(10);
+
+        setSurfaceTextureListener(this);
+
+        this.listener = new OnGameListener(){
+
+            @Override
+            public void onGameCreated(Game game) {
+            }
+
+            @Override
+            public void onGameResume() {
+            }
+
+            @Override
+            public void onGamePause() {
+            }
+        };
 
         setCurrentScene(new Scene());
     }
 
-
-    @Override
-    public void run() {
-        fpsManager.start();
-        while (thread != null) {
-            if (fpsManager.sleep()) {
-                continue;
-            }
-            Canvas c = view.lockCanvas();
-            loop(c);
-            view.unlockCanvasAndPost(c);
-        }
+    public OnGameListener getOnGameListener() {
+        return listener;
     }
 
-    private void loop(Canvas c) {
-        c.drawColor(Color.BLACK);
-        currentScene.update();
-        currentScene.draw(c);
-        Paint p = new Paint();
-        p.setColor(Color.WHITE);
-        p.setTextSize(30f);
-        c.drawText(String.format("%5.02fFps", fpsMoniter.show()), 100, 100, p);
-        frameCount++;
+    public void setOnGameListener(OnGameListener listener) {
+        this.listener = listener;
+    }
+
+    public synchronized void setCurrentScene(Scene scene) {
+        scene.create(currentScene, this);
+        this.currentScene = scene;
+        scene.resume(currentScene, this);
+    }
+
+    public Scene getCurrentScene() {
+        return currentScene;
+    }
+
+    public FpsManager getFpsManager() {
+        return fpsManager;
     }
 
     public synchronized void start() {
@@ -78,41 +119,57 @@ public class Game implements Runnable {
         Log.d(TAG, "Game stop!");
     }
 
-    public FpsManager getFpsManager() {
-        return fpsManager;
+    @Override
+    public void run() {
+        fpsManager.start();
+        while (thread != null) {
+            if (fpsManager.sleep()) {
+                continue;
+            }
+            Canvas c = lockCanvas();
+            loop(c);
+            unlockCanvasAndPost(c);
+        }
     }
 
-    public synchronized void setCurrentScene(Scene scene) {
-        scene.create(currentScene, this);
-        scene.resume(currentScene, this);
-        this.currentScene = scene;
+    private void loop(Canvas c) {
+        c.drawColor(Color.BLACK);
+        currentScene.update();
+        currentScene.draw(c);
+        Paint p = new Paint();
+        p.setColor(Color.WHITE);
+        p.setTextSize(30f);
+        c.drawText(String.format("%5.02fFps", fpsMoniter.show()), 100, 100, p);
+        frameCount++;
     }
 
-    public Scene getCurrentScene() {
-        return currentScene;
+    @Override
+    public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
+        if (!gameCreated) {
+            listener.onGameCreated(this);
+        }
+        start();
+        listener.onGameResume();
     }
 
-    public Context getContext() {
-        return view.getContext();
+    @Override
+    public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
     }
 
-    public int getWidth() {
-        return view.getWidth();
+    @Override
+    public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
+        listener.onGamePause();
+        stop();
+        return false;
     }
 
-    public int getHeight() {
-        return view.getHeight();
+    @Override
+    public void onSurfaceTextureUpdated(SurfaceTexture surface) {
     }
 
-    public float getTop() {
-        int[] xy = new int[2];
-        view.getLocationInWindow(xy);
-        return xy[1];
-    }
-
-    public float getLeft() {
-        int[] xy = new int[2];
-        view.getLocationInWindow(xy);
-        return xy[0];
+    public interface OnGameListener {
+        void onGameCreated(Game game);
+        void onGameResume();
+        void onGamePause();
     }
 }
