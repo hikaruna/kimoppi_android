@@ -36,7 +36,7 @@ public class Game implements Runnable {
         this.fpsManager = new FpsManager();
         this.fpsMoniter = new FpsMoniter(10);
 
-        setCurrentScene(Scene.class);
+        setCurrentScene(new Scene());
     }
 
 
@@ -82,15 +82,10 @@ public class Game implements Runnable {
         return fpsManager;
     }
 
-    public synchronized <T extends Scene> T setCurrentScene(Class<T> sceneClass) {
-        try {
-            T scene = sceneClass.newInstance();
-            scene.onCreate(currentScene, this);
-            this.currentScene = scene;
-            return scene;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public synchronized void setCurrentScene(Scene scene) {
+        scene.create(currentScene, this);
+        scene.resume(currentScene, this);
+        this.currentScene = scene;
     }
 
     public Scene getCurrentScene() {

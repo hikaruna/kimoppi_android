@@ -17,6 +17,9 @@ import ninja.hikaruna.lunandroid.GameActivity;
 
 public class MainActivity extends GameActivity {
 
+    private MainScene mainScene;
+    private TouchScene touchScene;
+
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
@@ -34,10 +37,18 @@ public class MainActivity extends GameActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_scene_main:
-                getGame().setCurrentScene(MainScene.class);
+                if(getGame().getCurrentScene() instanceof MainScene) {
+                    getGame().setCurrentScene(mainScene = new MainScene());
+                }else {
+                    getGame().setCurrentScene(mainScene);
+                }
                 return true;
             case R.id.action_scene_touch:
-                getGame().setCurrentScene(TouchScene.class);
+                if(getGame().getCurrentScene() instanceof TouchScene) {
+                    getGame().setCurrentScene(touchScene = new TouchScene());
+                }else {
+                    getGame().setCurrentScene(touchScene);
+                }
                 return true;
         }
         return false;
@@ -46,6 +57,8 @@ public class MainActivity extends GameActivity {
     @Override
     protected void onGameCreated(Game game) {
         game.getFpsManager().setFps(30);
-        game.setCurrentScene(MainScene.class);
+        mainScene = new MainScene();
+        touchScene = new TouchScene();
+        game.setCurrentScene(mainScene);
     }
 }
