@@ -15,6 +15,7 @@ import android.view.View;
 
 import ninja.hikaruna.lunandroid.support.FpsManager;
 import ninja.hikaruna.lunandroid.support.FpsMoniter;
+import ninja.hikaruna.lunandroid.util.Vector2D;
 
 /**
  * Created by hikaru on 2015/07/26.
@@ -59,7 +60,8 @@ public class Game extends TextureView implements Runnable, TextureView.SurfaceTe
         setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                return getCurrentScene().onTouch(v, event);
+                ControllEvent controllEvent = new ControllEvent(event, Game.this);
+                return getCurrentScene().onControll(controllEvent);
             }
         });
 
@@ -103,6 +105,18 @@ public class Game extends TextureView implements Runnable, TextureView.SurfaceTe
 
     public FpsManager getFpsManager() {
         return fpsManager;
+    }
+
+    public int getLocationInWindowX() {
+        int[] xy = new int[2];
+        getLocationInWindow(xy);
+        return xy[0];
+    }
+
+    public int getLocationInWindowY() {
+        int[] xy = new int[2];
+        getLocationInWindow(xy);
+        return xy[1];
     }
 
     public synchronized void start() {

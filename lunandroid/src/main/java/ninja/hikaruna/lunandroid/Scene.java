@@ -112,7 +112,8 @@ public class Scene extends SpriteGroup {
         return controllerManager;
     }
 
-    public boolean onTouch(View v, MotionEvent event) {
-        return controllerManager.onTouch(v, event);
+    public boolean onControll(ControllEvent event) {
+        event.setCurrent(this);
+        return controllerManager.onControll(event);
     }
 }

@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import ninja.hikaruna.lunandroid.ControllEvent;
 import ninja.hikaruna.lunandroid.feature.Controllable;
 
 /**
@@ -21,7 +22,7 @@ public class ControllerManager {
      * 1フレーム中の入力は配列にして格納
      * updateが呼ばれるたびにControlableへ送信される.
      */
-    private List<MotionEvent> events;
+    private List<ControllEvent> events;
 
     public ControllerManager() {
         targets = new HashSet<>();
@@ -32,7 +33,7 @@ public class ControllerManager {
         targets.add(controllable);
     }
 
-    public boolean onTouch(View v, MotionEvent event) {
+    public boolean onControll(ControllEvent event) {
         events.add(event);
         return true;
     }
@@ -40,7 +41,8 @@ public class ControllerManager {
     public void update() {
         if(!events.isEmpty()) {
             for (Controllable target : targets) {
-                target.onControll(events.get(events.size() - 1));
+                ControllEvent event = events.get(events.size() - 1);
+                target.onControll(event);
             }
         }
         events = new ArrayList<>();

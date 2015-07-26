@@ -2,6 +2,7 @@ package ninja.hikaruna.lunandroid.feature;
 
 import android.view.MotionEvent;
 
+import ninja.hikaruna.lunandroid.ControllEvent;
 import ninja.hikaruna.lunandroid.support.ControllerManager;
 import ninja.hikaruna.lunandroid.Scene;
 
@@ -23,14 +24,15 @@ public class Controllable extends Feature {
         listener = controller;
     }
 
-    public void onControll(MotionEvent event) {
+    public void onControll(ControllEvent event) {
         if(listener == null) {
             return;
         }
+        event.setCurrent(getSprite().getParent());
         listener.onControll(event);
     }
 
     public interface Controller {
-        void onControll(MotionEvent event);
+        void onControll(ControllEvent event);
     }
 }

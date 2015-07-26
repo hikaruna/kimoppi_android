@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 
+import ninja.hikaruna.lunandroid.ControllEvent;
 import ninja.hikaruna.lunandroid.Sprite;
 import ninja.hikaruna.lunandroid.feature.Controllable;
 
@@ -27,9 +28,9 @@ public class Punipuni extends Sprite {
 
         useFeature(Controllable.class).setController(new Controllable.Controller() {
             @Override
-            public void onControll(MotionEvent event) {
-                setAbsoluteX(- getGame().getLeft() + event.getRawX());
-                setAbsoluteY(- getGame().getTop() + event.getRawY());
+            public void onControll(ControllEvent event) {
+                x = event.getX();
+                y = event.getY();
                 show();
                 hideCount = HIDE_COUNT_MAX;
             }

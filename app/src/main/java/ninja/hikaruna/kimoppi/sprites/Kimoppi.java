@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 import ninja.hikaruna.kimoppi.R;
+import ninja.hikaruna.lunandroid.ControllEvent;
 import ninja.hikaruna.lunandroid.Sprite;
 import ninja.hikaruna.lunandroid.feature.Animatable;
 import ninja.hikaruna.lunandroid.feature.Controllable;
@@ -60,19 +61,15 @@ public class Kimoppi extends Sprite {
 
         useFeature(Controllable.class).setController(new Controllable.Controller() {
             @Override
-            public void onControll(MotionEvent event) {
-                Log.d("Ctrl", "" + getGame().frameCount + "F: " + event.toString());
-                float eX = event.getX() - getGame().getLeft();
-                float eY = event.getY() - getGame().getTop();
+            public void onControll(ControllEvent event) {
+                Vector2D eV = new Vector2D(event.getX(), event.getY()); // タッチしたところ
+                Vector2D position = new Vector2D(x, y); // きもッピの場所
 
-                Vector2D eV = new Vector2D(eX, eY); // タッチしたところ
-                Vector2D position = new Vector2D(getAbsoluteX(), getAbsoluteY()); // きもッピの場所
                 Physics p = useFeature(Physics.class);
                 Vector2D speed = new Vector2D(p.speedX, p.speedY).multiplication(30F);
                 Vector2D defaultDist = position.addition(speed); // なにもしない時のきもっぴの到着点
                 Vector2D subV = eV.subtraction(defaultDist); // 到着点とタッチしたところの差のベクトル
                 Vector2D subV2 = subV.division(400);
-
 
                 p.speedX += subV2.getX();
                 p.speedY += subV2.getY();
