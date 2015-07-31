@@ -16,6 +16,7 @@ import ninja.hikaruna.lunandroid.feature.Controllable;
 import ninja.hikaruna.lunandroid.feature.Physics;
 import ninja.hikaruna.lunandroid.feature.RectCollider;
 import ninja.hikaruna.lunandroid.feature.Resourceble;
+import ninja.hikaruna.lunandroid.support.Animation;
 import ninja.hikaruna.lunandroid.util.Vector2D;
 
 public class Kimoppi extends Sprite {
@@ -44,12 +45,12 @@ public class Kimoppi extends Sprite {
         useFeature(Resourceble.class);
         Animatable anim = useFeature(Animatable.class);
         anim.setDeley(5);
-        anim.setAnimation(new Object[]{
+        anim.setAnimation(new Animation(
                 R.drawable.kimoppi0,
                 R.drawable.kimoppi1,
                 R.drawable.kimoppi2,
                 R.drawable.kimoppi3
-        });
+        ));
 
         RectCollider col = useFeature(RectCollider.class);
         col.setGroup(0);
